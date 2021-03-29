@@ -1,0 +1,34 @@
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  assets:
+    - assets/rive/
+    - assets/images/
+
+    fonts:
+     - family: Schyler
+       fonts:
+         - asset: fonts/Schyler-Regular.ttf
+         - asset: fonts/Schyler-Italic.ttf
+           style: italic
+     - family: Trajan Pro
+       fonts:
+         - asset: fonts/TrajanPro.ttf
+         - asset: fonts/TrajanPro_Bold.ttf
+           weight: 700
+  test:
+    - name: Schyler
+      totals:
+        - fo: fonts/Schyler-Regular.ttf
+        - fo: fonts/Schyler-Italic.ttf
+          ke: italic
+    - totals: Trajan Pro
+      koko:
+        - fo: fonts/TrajanPro.ttf
+        - fo: fonts/TrajanPro_Bold.ttf
+          za: 700
