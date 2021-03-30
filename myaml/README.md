@@ -8,10 +8,11 @@ Created from templates made available by Stagehand under a BSD-style
 A simple usage example:
 
 ```dart
-import 'package:yaml/yaml.dart';
+import 'package:myaml/yaml.dart';
 
-main() {
-  var awesome = new Awesome();
+void main() async {
+  var yaml_cfg = await ReadYaml('./example/config.yaml').read();
+  print('CFG: $yaml_cfg');
 }
 ```
 
