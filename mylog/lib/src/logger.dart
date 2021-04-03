@@ -65,7 +65,7 @@ class Logging {
   }
 
   Future _listen(Stream<String> stream) async {
-    print('START READ STREAM ${messages.length}');
+    print('START READ STREAM ${messages.length} !!!');
     while (true) {
       await for (var row in stream) {
         try {
