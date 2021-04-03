@@ -24,7 +24,7 @@ flutter:
   test:
     - name: Schyler
       totals:
-        - fo: fonts/Schyler-Regular.ttf
+        - fo: 'fonts/Schyler-Regular.ttf'
         - fo: fonts/Schyler-Italic.ttf
           ke: italic
     - totals: Trajan Pro

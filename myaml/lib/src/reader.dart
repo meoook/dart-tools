@@ -1,25 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'yaml_map.dart';
+import 'add.dart';
 
-class ReadYaml {
+class YamlRead {
   final File _file;
-  final YamlMap _yaml = YamlMap();
 
-  ReadYaml(String name) : _file = _validFile(name);
+  YamlRead(String name) : _file = _validFile(name);
 
   static File _validFile(String name) {
-    var _path = Platform.script.resolve(name).toFilePath();
+    final _path = Platform.script.resolve(name).toFilePath();
     assert(_path.isNotEmpty, 'path not found for $name');
     return File(name);
   }
 
   Future<Map<String, dynamic>> read() async {
     // Decode bytes to UTF-8 and convert stream to individual lines.
-    var lines = _file.openRead().transform(utf8.decoder).transform(LineSplitter());
+    final _lines = _file.openRead().transform(utf8.decoder).transform(LineSplitter());
+    final _yaml = YamlAdd();
     try {
-      await for (var _line in lines) {
+      await for (var _line in _lines) {
         _yaml.add(_line);
       }
       stdout.write('Yaml ${_file.path} read successfully');
