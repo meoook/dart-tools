@@ -60,7 +60,7 @@ abstract class LogFileController {
       _names.sort();
       var _toRemove = File('logs/${_names.first}.log');
       if (await _toRemove.exists()) {
-        print('Remove old file ${_names.first}.log}');
+        print('Remove old file ${_names.first}.log');
         await _toRemove.delete();
       } else {
         print('Error - old log file $_toRemove not found to delete');
