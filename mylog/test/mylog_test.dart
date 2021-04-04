@@ -1,16 +1,20 @@
-import 'package:mylog/mylog.dart';
-import 'package:test/test.dart';
+// import 'package:mylog/mylog.dart';
+// import 'package:test/test.dart';
 
-void main() {
-  group('A group of tests', () {
-    Awesome awesome;
+// void main() {
+//   group('A group of tests', () {
+//     Logging logger;
 
-    setUp(() {
-      awesome = Awesome();
-    });
+//     setUp(() {
+//       logger = Logging();
+//     });
 
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
-    });
-  });
-}
+//     test('First Test', () async {
+//       // expect(awesome.isAwesome, isTrue);
+//       var _idx = 0;
+//       while (true) {
+//         logger.i('$_idx message');
+//       }
+//     });
+//   });
+// }
