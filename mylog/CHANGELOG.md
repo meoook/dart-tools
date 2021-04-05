@@ -1,3 +1,7 @@
+## 1.0.1
+
+- File rotation by size limit
+
 ## 1.0.0
 
-- Initial version, created by Stagehand
+- Stream logger
