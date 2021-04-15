@@ -1,18 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
-import 'utils.dart';
+import 'date.dart';
 
 abstract class LogFileController {
-  final _dir = Directory('logs');
-  int sizeLimit;
-  late File _file;
-  late String _fileName;
-  // late IOSink _sink;
-  final _linesQueue = StreamController<String>();
+  static final _dir = Directory('logs');
+  static int sizeLimit = 0;
+  static late String _fileName;
+  static late IOSink _sink;
+  final _linesQueue = StreamController<String>(onPause: onPAUSE, sync: true);
 
-  LogFileController({this.sizeLimit = 0, bool oneDayOneFile = true}) {
-    // FIXME: oneDayOneFile not finished
+  LogFileController() {
     _init();
   }
 
@@ -20,29 +19,32 @@ abstract class LogFileController {
 
   /// Check for directory exist, set [_fileName] and [_file], start listen to stream
   Future<void> _init() async {
+    // Directory creation
     if (!await _dir.exists()) await _dir.create();
+    // File sinc init
     _fileName = DateTime.now().date;
-    _file = File('logs/$_fileName.log');
-    _linesQueue.stream.listen((event) async => await _logFile(event));
+    _sink = File('logs/$_fileName.log').openWrite(mode: FileMode.append);
+    // Sibscribe logger to sink stream
+    await _sink.addStream(_linesQueue.stream.transform(utf8.encoder));
   }
 
-  Future<void> _logFile(String row) async {
-    await _file.writeAsString(row, mode: FileMode.writeOnlyAppend);
+  static void onPAUSE() {
     _nameControl();
     _sizeControl();
   }
 
   /// Check new date to create [_file]
-  void _nameControl() {
+  static void _nameControl() {
     final _today = DateTime.now().date;
     if (_fileName != _today) {
+      _sink.close();
       _fileName = _today;
-      _file = File('logs/$_fileName.log');
+      _sink = File('logs/$_fileName.log').openWrite(mode: FileMode.append);
     }
   }
 
   /// Check [_dir] for [sizeLimit] and control free space
-  void _sizeControl() async {
+  static void _sizeControl() async {
     if (sizeLimit == 0) return;
     var _total = 0;
     var _names = <String>[];
@@ -58,7 +60,6 @@ abstract class LogFileController {
     } catch (e) {
       print(e.toString());
     }
-    // TODO: file rotation for one file
     if (_names.isEmpty || _names.length == 1) return;
     // Check size
     if (_total > sizeLimit) {
